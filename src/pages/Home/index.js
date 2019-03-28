@@ -7,12 +7,12 @@ const mapStateToProps = (state) => ({
   title: state.title
 })
 
-const HomePage = ({ title }) => (
+const HomePage = ({ title, dispatch }) => (
   <div>
     <p>
       The application title is {title}
     </p>
-    <button onClick={actions.search} />
+    <button onClick={() => dispatch(actions.search())}>Search</button>
   </div>
 )
 

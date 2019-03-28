@@ -4,12 +4,11 @@ const initialState = {
     title: 'Search for ...'
 };
 
-function rootReducer(state = initialState, action) {
-    if (action.type === TYPES.SEARCH) {
-        console.log(action.payload)
-        return Object.assign({}, state, { title: action.payload })
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case TYPES.SEARCH:
+            return Object.assign({}, state, { title: action.payload })
+        default:
+            return state
     }
-    return state;
 }
-
-export default rootReducer;
