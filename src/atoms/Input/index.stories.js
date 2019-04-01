@@ -1,10 +1,8 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 
-import Input from '../src/atoms/Input'
+import Input from '.'
 
 storiesOf('Input', module)
   .add('default', () => (
