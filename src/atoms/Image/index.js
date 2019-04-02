@@ -1,13 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-const Image = (logo, ...props) => <img {...props} logo={logo} />
+const Image = (props) => <img {...props}/>
 
-Image.PropTypes = {
-  logo: PropTypes.string
-}
-
-// Image.defaultProps = {
-//   logo: ''
-// }
 export default Image

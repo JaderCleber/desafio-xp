@@ -1,15 +1,5 @@
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { font, palette } from 'styled-theme'
+import React from 'react'
 
-const Label = styled.label`
-  font-family: ${font('primary')};
-  color: ${palette('grayscale', 1)};
-  font-size: 1rem;
-  line-height: 2em;
-`
-
-const Label = (props) => <span {...props} />
-
+const Label = (props) => <span {...props}/>
 
 export default Label

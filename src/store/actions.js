@@ -1,8 +1,11 @@
 
 export const TYPES = {
-    SEARCH: "SEARCH"
+    SEARCH: "SEARCH",
+    GET_RESULTS: "GET_RESULTS",
+    PLAY: "PLAY",
 }
 
 export const actions = {
-    search: () => ({ type: TYPES.SEARCH, payload: 'Searching for home page' })
+    search: (value) => ({ type: TYPES.SEARCH, payload: value }),
+    getResults: () => ({ type: TYPES.GET_RESULTS, payload: value }),
 }

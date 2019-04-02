@@ -4,8 +4,5 @@ import Label from '.'
 
 storiesOf('Label', module)
   .add('default', () => (
-    <Label>Hello</Label>
-  ))
-  .add('reverse', () => (
-    <Label reverse>Hello</Label>
+    <Label>Default Label</Label>
   ))
