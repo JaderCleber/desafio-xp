@@ -6,6 +6,16 @@ export const TYPES = {
 }
 
 export const actions = {
-    search: (value) => ({ type: TYPES.SEARCH, payload: value }),
-    getResults: () => ({ type: TYPES.GET_RESULTS, payload: value }),
+    search: (value) => {
+        // const recent = JSON.parse(localStorage.getItem('recent') || '');
+        // const newRecent = results.concat(recent).unique().slice(10);
+        // localStorage.setItem('recent', JSON.stringify(newRecent));
+        return { type: TYPES.SEARCH, payload: value }
+    },
+    getResults: (results) => {
+        // const recent = JSON.parse(localStorage.getItem('recent') || '');
+        // const newRecent = results.concat(recent).unique().slice(10);
+        // localStorage.setItem('recent', JSON.stringify(newRecent));
+        return { type: TYPES.GET_RESULTS, payload: results }
+    },
 }
