@@ -34,7 +34,7 @@ import { Card } from '../../molecules'
 
 const List = ({ cards, ...props }) => {
   const list = cards.map(card => (
-    <Card key={card.id} album={card.album} artist={card.artist} image={card.image} />
+    <Card key={card.id} album={card.album} artist={card.artist} image={card.image} {...props} />
   ));
   <div>
     {list}
