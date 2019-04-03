@@ -1,6 +1,6 @@
 # desafio-xp
 
-Instalar as dependencias - npm i
+Instalar as dependencias, tanto na raíz como dentro de /server - npm i
 
 Necessário subir o server para conectar a API do Spotify em segundo plano - npm run server
 
