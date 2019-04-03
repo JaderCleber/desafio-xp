@@ -9,8 +9,12 @@ const Field = ({
   const { id } = props;
   return (
     <div>
-      {label && <Label htmlFor={id}>{label}</Label>}
-      <Input id={id} {...props} />
+      <div className="row">
+        {label && <Label htmlFor={id}>{label}</Label>}
+      </div>
+      <div className="row">
+        <Input id={id} {...props} />
+      </div>
     </div>
   )
 }

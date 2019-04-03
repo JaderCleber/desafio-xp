@@ -5,6 +5,7 @@ import { actions } from '../../store/actions'
 import { Label } from '../../atoms'
 import { Field } from '../../molecules'
 import { List } from '../../organisms'
+import TemplateSpotify from '../../templates/TemplateSpotify';
 
 const mapStateToProps = (state) => ({
   recent: state.recent,
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => ({
   searchText: state.searchText
 })
 
-const HomePage = ({ recent, played, results, searchText, dispatch }) => {
+const HomePage = ({ recent, played, results, searchText, dispatch, history }) => {
   const onChange = (e) => {
     dispatch(actions.search(e.target.value))
     fetch('http://example.com/movies.json')
@@ -22,8 +23,10 @@ const HomePage = ({ recent, played, results, searchText, dispatch }) => {
         console.log(data);
         dispatch(actions.getResults(data))
       });
+  }
 
-
+  const openAlbum = (id) => {
+    history.push({pathname: `/album/${id}`})
   }
 
   const search = () => {
@@ -31,7 +34,7 @@ const HomePage = ({ recent, played, results, searchText, dispatch }) => {
       if (results.length > 0) {
         return (<div>
           <Label>Resultados Encontrados para "{searchText}"</Label>
-          <List cards={results} />
+          <List cards={results} onClick={openAlbum} />
         </div>)
       }
       return (<div>
@@ -43,27 +46,28 @@ const HomePage = ({ recent, played, results, searchText, dispatch }) => {
         {recent.length > 0 && (
           <div>
             <Label>Álbuns Buscados Recentemente</Label>
-            <List cards={recent} />
+            <List cards={recent} onClick={openAlbum} />
           </div>
         )}
         {played.length > 0 && (
           <div>
             <Label>Álbuns Tocados Recentemente</Label>
-            <List cards={played} />
+            <List cards={played} onClick={openAlbum} />
           </div>
         )}
       </div>
     )
   }
-  return (<div>
-    <Field
-      name='searchText'
-      label='Busque por artistas, álbuns ou músicas'
-      placeholder='Comece a escrecer...'
-      value={searchText}
-      onChange={onChange} />
-    {search()}
-  </div>)
+  return (
+    <TemplateSpotify>
+      <Field
+        name='searchText'
+        label='Busque por artistas, álbuns ou músicas'
+        placeholder='Comece a escrecer...'
+        value={searchText}
+        onChange={onChange} />
+      {search()}
+    </TemplateSpotify>)
 }
 
 export default connect(mapStateToProps)(HomePage)

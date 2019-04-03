@@ -1,10 +1,30 @@
 import { TYPES } from './actions'
 
 const initialState = {
-    recent: [],
-    played: [],
+    recent: [{
+        album: 'Album 1',
+        artist: 'Artist 1',
+        image: 'image.png'
+      },
+      {
+        album: 'Album 2',
+        artist: 'Artist 2',
+        image: 'image2.png'
+      }],
+    played: [{
+        album: 'Album 1',
+        artist: 'Artist 1',
+        image: 'image.png'
+      },
+      {
+        album: 'Album 2',
+        artist: 'Artist 2',
+        image: 'image2.png'
+      }],
     results: [],
     searchText: '',
+    tracks: [],
+    album: {}
 };
 
 export default (state = initialState, action) => {

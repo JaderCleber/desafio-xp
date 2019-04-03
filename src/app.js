@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
-// import './App.css'
-import HomePage from './pages/HomePage'
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route} from "react-router-dom";
+
+import HomePage from './pages/HomePage';
 import SpotifyWebApi from 'spotify-web-api-js';
+import './style.css';
+import AlbumPage from './pages/AlbumPage';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -44,21 +47,21 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <a href=' http://localhost:8888'> Login para Spotify </a>
-        <div>
-          Now Playing: {this.state.nowPlaying.name}
-        </div>
-        <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
-        </div>
-        {this.state.loggedIn &&
-          <button onClick={() => this.getNowPlaying()}>
-            Check Now Playing
-        </button>
-        }
-        <HomePage />
+      <Router>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/album/:album" component={AlbumPage} />
+      </Router>
+      /* <div>
+        Now Playing: {this.state.nowPlaying.name}
       </div>
+      <div>
+        <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
+      </div>
+      {this.state.loggedIn &&
+        <button onClick={() => this.getNowPlaying()}>
+          Check Now Playing
+      </button>
+      } */
     )
   }
 }

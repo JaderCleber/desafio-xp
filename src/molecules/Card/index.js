@@ -4,13 +4,21 @@ import PropTypes from 'prop-types'
 import { Label, Image } from '../../atoms'
 
 const Card = ({
-  album, artist, image
+  album, artist, image, ...props
 }) => {
+
+  const { className, onClick } = props;
   return (
-    <div>
-      <Image src={image} />
-      <Label>{album}</Label>
-      <Label>{artist}</Label>
+    <div {...props} onClick={() => onClick(album)} className={`${className} card`}>
+      <div className="row justify-content-center">
+        <Image src={image} />
+      </div>
+      <div className="row justify-content-center">
+        <Label>{album}</Label>
+      </div>
+      <div className="row justify-content-center">
+        <Label>{artist}</Label>
+      </div>
     </div>
   )
 }

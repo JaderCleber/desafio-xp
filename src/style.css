@@ -1,0 +1,62 @@
+body {
+  font-family: 'Roboto';
+  background: #000000;
+  color: white;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid #999999;
+  background: transparent;
+  font-weight: bold;
+  font-size: 48px;
+  text-align: left;
+  color: #999999;
+  font-family: 'Roboto';
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.col {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 2rem auto;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-around {
+  justify-content: space-around;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.primary {
+  color: #999999
+}
+
+.secundary {
+  color: #FAFAFA
+}
+
+.album {}
+
+.sidebar {
+  margin-right: 20px;
+}
+
+.card {
+  text-align: center;
+}
+.card:hover {
+  opacity: 50%;
+  background-color: white;
+  color: #000000;
+}

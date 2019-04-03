@@ -19,4 +19,8 @@ List.PropTypes = {
   tracks: PropTypes.array
 }
 
+List.defaultProps = {
+  tracks: []
+}
+
 export default List
