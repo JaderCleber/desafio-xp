@@ -1,37 +1,22 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route} from "react-router-dom";
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { setToken } from './store/actions';
 import HomePage from './pages/HomePage';
-import SpotifyWebApi from 'spotify-web-api-js';
 import './style.css';
 import AlbumPage from './pages/AlbumPage';
 
-const spotifyApi = new SpotifyWebApi();
-
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const params = this.getHashParams();
-    const token = params.access_token;
-    if (token) {
-      spotifyApi.setAccessToken(token);
+    const { access_token, refresh_token } = params;
+    if (!access_token) {
+      window.location.href = `http://localhost:8888/login`;
+    } else {
+      props.setToken(access_token);
     }
-    this.state = {
-      loggedIn: token ? true : false,
-      nowPlaying: { name: 'Not Checked', albumArt: '' }
-    }
-  }
-
-  getNowPlaying() {
-    spotifyApi.getMyCurrentPlaybackState()
-      .then((response) => {
-        this.setState({
-          nowPlaying: {
-            name: response.item.name,
-            albumArt: response.item.album.images[0].url
-          }
-        });
-      })
   }
 
   getHashParams() {
@@ -49,21 +34,23 @@ class App extends Component {
     return (
       <Router>
         <Route exact path="/" component={HomePage} />
-        <Route path="/album/:album" component={AlbumPage} />
+        <Route path="/album" component={AlbumPage} />
       </Router>
-      /* <div>
-        Now Playing: {this.state.nowPlaying.name}
-      </div>
-      <div>
-        <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
-      </div>
-      {this.state.loggedIn &&
-        <button onClick={() => this.getNowPlaying()}>
-          Check Now Playing
-      </button>
-      } */
     )
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  access_token: state.access_token,
+})
+
+
+const mapDispatchToProps = dispatch => {
+
+  return bindActionCreators({
+    setToken
+  }, dispatch);
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

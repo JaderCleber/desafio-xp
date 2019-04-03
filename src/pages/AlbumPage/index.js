@@ -12,22 +12,22 @@ const mapStateToProps = (state) => ({
   album: state.album
 })
 
-const AlbumPage = ({ album, tracks, dispatch, match, history }) => {
-  const onChange = (e) => {
-    dispatch(actions.search(e.target.value))
-    fetch('http://example.com/movies.json')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        dispatch(actions.getResults(data))
-      });
-  }
-
+const AlbumPage = ({ album, tracks }) => {
   return (<div>
     <TemplateSpotify>
-      <Link to="/">Back</Link>
-      <Card />
-      <TrackList tracks={tracks} />
+      <div className="row">
+        <div className="col">
+          <Link to="/">Back</Link>
+          <Card className="col" key={album.id}
+            name={album.name}
+            artist={album.artists[0].name}
+            image={album.images[0].url}
+            id={album.href} />
+        </div>
+        <div className="col">
+          <TrackList className="col" tracks={tracks} />
+        </div>
+      </div>
     </TemplateSpotify>
   </div>)
 }

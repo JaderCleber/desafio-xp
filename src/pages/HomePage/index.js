@@ -1,40 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { actions } from '../../store/actions'
-
-import { Label } from '../../atoms'
+import { bindActionCreators } from 'redux';
+import { search, openAlbum } from '../../store/actions'
+import TemplateSpotify from '../../templates/TemplateSpotify'
 import { Field } from '../../molecules'
+import { Label } from '../../atoms'
 import { List } from '../../organisms'
-import TemplateSpotify from '../../templates/TemplateSpotify';
 
-const mapStateToProps = (state) => ({
-  recent: state.recent,
-  played: state.played,
-  results: state.results,
-  searchText: state.searchText
-})
-
-const HomePage = ({ recent, played, results, searchText, dispatch, history }) => {
-  const onChange = (e) => {
-    dispatch(actions.search(e.target.value))
-    fetch('http://example.com/movies.json')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        dispatch(actions.getResults(data))
-      });
+class HomePage extends React.Component {
+  constructor() {
+    super();
+    this.onChange = this.onChange.bind(this)
+    this.openAlbum = this.openAlbum.bind(this)
+    this.search = this.search.bind(this)
   }
 
-  const openAlbum = (id) => {
-    history.push({pathname: `/album/${id}`})
+  onChange(e) {
+    this.props.search(e.target.value)
   }
 
-  const search = () => {
+  openAlbum(album) {
+    this.props.openAlbum(album);
+    this.props.history.push({ pathname: `/album` })
+  }
+
+  search({ searchText, recent, results, played }) {
     if (searchText) {
       if (results.length > 0) {
         return (<div>
           <Label>Resultados Encontrados para "{searchText}"</Label>
-          <List cards={results} onClick={openAlbum} />
+          <List cards={results} onClick={this.openAlbum} />
         </div>)
       }
       return (<div>
@@ -46,28 +41,48 @@ const HomePage = ({ recent, played, results, searchText, dispatch, history }) =>
         {recent.length > 0 && (
           <div>
             <Label>Álbuns Buscados Recentemente</Label>
-            <List cards={recent} onClick={openAlbum} />
+            <List cards={recent} onClick={this.openAlbum} />
           </div>
         )}
         {played.length > 0 && (
           <div>
             <Label>Álbuns Tocados Recentemente</Label>
-            <List cards={played} onClick={openAlbum} />
+            <List cards={played} onClick={this.openAlbum} />
           </div>
         )}
       </div>
     )
   }
-  return (
-    <TemplateSpotify>
-      <Field
-        name='searchText'
-        label='Busque por artistas, álbuns ou músicas'
-        placeholder='Comece a escrecer...'
-        value={searchText}
-        onChange={onChange} />
-      {search()}
-    </TemplateSpotify>)
+  render() {
+    const { searchText, recent, results, played } = this.props
+    return (
+      <TemplateSpotify>
+        <Field
+          name='searchText'
+          label='Busque por artistas, álbuns ou músicas'
+          placeholder='Comece a escrecer...'
+          value={searchText}
+          onChange={this.onChange} />
+        {this.search({ searchText, recent, results, played })}
+      </TemplateSpotify>)
+  }
 }
 
-export default connect(mapStateToProps)(HomePage)
+
+const mapStateToProps = (state) => ({
+  recent: state.recent,
+  played: state.played,
+  results: state.results,
+  searchText: state.searchText
+})
+
+
+const mapDispatchToProps = dispatch => {
+
+  return bindActionCreators({
+    search, openAlbum
+  }, dispatch);
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

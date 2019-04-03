@@ -7,7 +7,7 @@ const TemplateSpotify = ({
   return (
     <div className="row" {...props}>
       <div className="sidebar">
-        <a href=' http://localhost:8888'>ICON</a>
+        <a href='http://localhost:8888/login'>ICON</a>
       </div>
       <div className="col">{children}</div>
     </div>

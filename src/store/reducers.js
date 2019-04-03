@@ -1,26 +1,8 @@
 import { TYPES } from './actions'
 
 const initialState = {
-    recent: [{
-        album: 'Album 1',
-        artist: 'Artist 1',
-        image: 'image.png'
-      },
-      {
-        album: 'Album 2',
-        artist: 'Artist 2',
-        image: 'image2.png'
-      }],
-    played: [{
-        album: 'Album 1',
-        artist: 'Artist 1',
-        image: 'image.png'
-      },
-      {
-        album: 'Album 2',
-        artist: 'Artist 2',
-        image: 'image2.png'
-      }],
+    recent: [],
+    played: [],
     results: [],
     searchText: '',
     tracks: [],
@@ -31,15 +13,32 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case TYPES.SEARCH:
             return Object.assign({}, state, { searchText: action.payload })
-        case TYPES.GET_RESULTS:
-            return Object.assign({}, state, {
-                results: action.payload,
-                recent: [...state.recent, actions.payload]
-            })
+        case TYPES.OPEN_ALBUM:
+            return {
+                ...state,
+                recent: [...state.recent, action.payload],
+                album: action.payload
+            }
         case TYPES.PLAY:
             return Object.assign({}, state, {
-                played: [...state.played, actions.payload]
+                played: [...state.played, action.payload]
             })
+        case TYPES.SET_TOKEN:
+            return {
+                ...state,
+                accessToken: action.payload
+            };
+
+        case TYPES.SEARCH_SUCCESS:
+            return {
+                ...state,
+                results: action.payload
+            };
+        case TYPES.OPEN_ALBUM_SUCCESS:
+            return {
+                ...state,
+                tracks: action.payload
+            };
         default:
             return state
     }

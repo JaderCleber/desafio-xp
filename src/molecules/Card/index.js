@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Label, Image } from '../../atoms'
 
 const Card = ({
-  album, artist, image, ...props
+  album, name, artist, image, id, ...props
 }) => {
 
   const { className, onClick } = props;
@@ -14,7 +14,7 @@ const Card = ({
         <Image src={image} />
       </div>
       <div className="row justify-content-center">
-        <Label>{album}</Label>
+        <Label>{name}</Label>
       </div>
       <div className="row justify-content-center">
         <Label>{artist}</Label>
@@ -27,6 +27,7 @@ Card.propTypes = {
   album: PropTypes.string,
   artist: PropTypes.string,
   image: PropTypes.string,
+  id: PropTypes.string,
 }
 
 export default Card

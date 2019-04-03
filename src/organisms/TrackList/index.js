@@ -2,25 +2,29 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Label } from '../../atoms'
 
-const List = ({ tracks, ...props }) => {
-  const list = tracks.map((track, index) => (
-    <div key={track.id}>
+const TrackList = ({ tracks, ...props }) => {
+  const list = tracks.map((track, index) => {
+    const { duration_ms, name, href } = track;
+    const duration = new Date(duration_ms);
+    const seconds = duration.getSeconds();
+    const minutes = duration.getMinutes();
+    return (<div className="col track" key={href}>
       <Label>{index}.</Label>
-      <Label>{track.name}</Label>
-      <Label>{track.duration}</Label>
-    </div>
-  ));
-  <div {...props}>
+      <Label>{name}</Label>
+      <Label>{`${minutes}:${seconds}`}</Label>
+    </div>)
+  });
+  return (<div {...props}>
     {list}
-  </div>
+  </div>);
 }
 
-List.PropTypes = {
+TrackList.PropTypes = {
   tracks: PropTypes.array
 }
 
-List.defaultProps = {
+TrackList.defaultProps = {
   tracks: []
 }
 
-export default List
+export default TrackList
