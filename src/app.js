@@ -13,7 +13,7 @@ class App extends Component {
     const params = this.getHashParams();
     const { access_token, refresh_token } = params;
     if (!access_token) {
-      window.location.href = `http://localhost:8888/login`;
+      window.location.href = `https://accounts.spotify.com/authorize?client_id=${process.env.CLIENT_ID}&scope=${process.env.SCOPE}&response_type=${process.env.TYPE}&redirect_uri=${process.env.REDIRECT_URI}`;
     } else {
       props.setToken(access_token);
     }

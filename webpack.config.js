@@ -37,6 +37,7 @@ module.exports = {
     devServer: {
         contentBase: './dist',
         hot: true,
-        watchContentBase: true
+        watchContentBase: true,
+        port: 8080
     }
 };
