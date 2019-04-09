@@ -15,9 +15,10 @@ var cookieParser = require('cookie-parser');
 
 require('dotenv').config()
 
-var client_id = process.env.CLIENT_ID
-var client_secret = process.env.CLIENT_SECRET
-var redirect_uri = process.env.REDIRECT_URI
+var client_id = process.env.CLIENT_ID || 'daea590ef84649f19edd1e6fd50ad1bc'
+var client_secret = process.env.CLIENT_SECRET || '809ca164d28f410c9857d80ee1ac990c'
+var redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8888/callback'
+var scope = process.env.SCOPE || 'playlist-read-private playlist-read-collaborative playlist-modify-public user-read-recently-played playlist-modify-private ugc-image-upload user-follow-modify user-follow-read user-library-read user-library-modify user-read-private user-read-email user-top-read user-read-playback-state'
 
 /**
  * Generates a random string containing numbers and letters
@@ -47,22 +48,22 @@ app.get('/login', function (req, res) {
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
+  // var { client_id, redirect_uri, scope } = req.query;
+
   // your application requests authorization
-  var scope = 'user-read-private user-read-email user-read-playback-state';
   res.redirect('https://accounts.spotify.com/authorize?' +
-  querystring.stringify({
-    response_type: 'code',
-    client_id: client_id,
-    scope: scope,
-    redirect_uri: redirect_uri,
-    state: state
-  }));
+    querystring.stringify({
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    }));
 });
 
 app.get('/callback', function (req, res) {
 
-  // your application requests refresh and access tokens
-  // after checking the state parameter
+  // var { client_id, redirect_uri } = req.query;
 
   var code = req.query.code || null;
   var state = req.query.state || null;
