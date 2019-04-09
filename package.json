@@ -23,8 +23,10 @@
     "react-dom": "^16.8.5",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
+    "react-test-renderer": "^16.8.6",
     "redux-thunk": "^2.3.0",
     "spotify-web-api-js": "^1.2.0",
+    "web-api-auth-examples": "file:server",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"
@@ -63,9 +65,12 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
+    ],
+    "setupFilesAfterEnv": [
+      "./src/test/enzyme.config.js"
     ]
   },
   "setupFiles": [
-    "./src/setupTests.js"
+    "./src/test/jest.config.js"
   ]
 }

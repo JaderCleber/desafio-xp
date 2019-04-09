@@ -1,10 +1,18 @@
 # desafio-xp
 
-Instalar as dependencias, tanto na raíz como dentro de /server - npm i
+Instalar as dependencias, tanto na raíz como dentro de /server
 
-Necessário subir o server para conectar a API do Spotify em segundo plano - npm run server
+cd desafio-xp
+npm i
+npm i server/
 
-Subir a aplicação - npm start
+Necessário subir o server para conectar a API do Spotify em segundo plano
+
+npm run server 
+
+Abrir outro terminal e subir a aplicação
+
+npm start
 
 Variáveis de ambiente necessárias: 
 CLIENT_ID=
